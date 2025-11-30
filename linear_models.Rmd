@@ -59,3 +59,46 @@ broom::tidy(fit) |>
   knitr::kable()
 ```
 
+## Be in control of factors
+
+```{r}
+nyc_airbnb =
+  nyc_airbnb |> 
+  mutate(
+    borough = fct_infreq(borough),
+    room_type = fct_infreq(room_type)
+  )
+```
+
+Look at that plot again
+
+```{r}
+nyc_airbnb |> 
+  ggplot(aes(x = stars, y = price, color = borough)) +
+  geom_point()
+```
+
+```{r}
+fit = lm(price ~ stars +borough, data = nyc_airbnb)
+
+broom::tidy(fit)
+broom::glance(fit)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
